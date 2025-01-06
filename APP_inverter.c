@@ -62,26 +62,26 @@ void INV_XY_CAL(void)
     // test3 = U_theta.theta;
 
     /*离网电流*/
-    IClark.a = Sample_curr_A;
-    IClark.b = Sample_curr_B;
-    IClark.c = Sample_curr_C;
-    Clark(&IClark); // ABC->alpha,beta
-    IPark.alpha = IClark.alpha;
-    IPark.beta = IClark.beta;
-    Park(&IPark, &I_theta); // alpha,beta->d,q
-    I_feedback_d = IPark.d;
-    I_feedback_q = IPark.q;
-
-    /*并网电流*/
     // IClark.a = Sample_curr_A;
     // IClark.b = Sample_curr_B;
     // IClark.c = Sample_curr_C;
     // Clark(&IClark); // ABC->alpha,beta
     // IPark.alpha = IClark.alpha;
     // IPark.beta = IClark.beta;
-    // Park(&IPark, &G_theta); // alpha,beta->d,q
+    // Park(&IPark, &I_theta); // alpha,beta->d,q
     // I_feedback_d = IPark.d;
     // I_feedback_q = IPark.q;
+
+    /*并网电流*/
+    IClark.a = Sample_curr_A;
+    IClark.b = Sample_curr_B;
+    IClark.c = Sample_curr_C;
+    Clark(&IClark); // ABC->alpha,beta
+    IPark.alpha = IClark.alpha;
+    IPark.beta = IClark.beta;
+    Park(&IPark, &G_theta); // alpha,beta->d,q
+    I_feedback_d = IPark.d;
+    I_feedback_q = IPark.q;
 
     // test1 = IPark.d;
     // test2 = IPark.q;
@@ -223,7 +223,7 @@ void CURRENT_CLOSED_LOOP(float I_ref, float I_q)
     IiPark.d = Id_pid.uo;
     IiPark.q = Iq_pid.uo;
 
-    iPark(&IiPark, &I_theta); // Park反变换
+    iPark(&IiPark, &G_theta); // Park反变换
 
     /*把Park反变换的α和β赋给Clark反变换的α和β*/
     IiClark.alpha = IiPark.alpha;
@@ -236,7 +236,7 @@ void CURRENT_CLOSED_LOOP(float I_ref, float I_q)
     waveB = (IiClark.b + 1) / 2;
     waveC = (IiClark.c + 1) / 2;
 
-    // test1 = Id_pid.err;
+        // test1 = Id_pid.err;
     // test2 = Iq_pid.err;
     // test3 = Ud_pid.uo;
 }
@@ -268,7 +268,7 @@ void PHASE_LOCKED_LOOP(void)
     PLL_pid.fdb = GPark.q;
 
     PLL_pid.Kp = 1;
-    PLL_pid.Ki = 5;
+    PLL_pid.Ki = 100;
 
     PLL_pid.upper_limit = +PIEx100;
     PLL_pid.lower_limit = -PIEx100;

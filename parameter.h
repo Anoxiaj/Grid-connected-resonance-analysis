@@ -8,8 +8,8 @@
 #define U_Kp_parameter 2
 #define U_Ki_parameter 300
 
-#define I_Kp_parameter 0.05
-#define I_Ki_parameter 5
+#define I_Kp_parameter 0.03
+#define I_Ki_parameter 10
 
 /******************离网直流侧350V时*******************/
 // f = 10e3;

@@ -53,11 +53,12 @@ void SPWM_2Closed_loop(double out_var[9], double in_var[18]) // 相当于主函�
 		Sample_Grid_B = in_var[13];
 		Sample_Grid_C = in_var[14];
 
-		PHASE_LOCKED_LOOP(); // 角度生成-->G_theta
+				PHASE_LOCKED_LOOP(); // 角度生成-->G_theta
 
 		THETA_GENERATE();	   // 角度生成-->U_theta, I_theta
 		sin_cos_cal(&U_theta); // 正余弦计算
 		sin_cos_cal(&I_theta);
+		sin_cos_cal(&G_theta);
 		INV_XY_CAL(); // 坐标变换-->I_feedback_d, I_feedback_q, U_feedback_d, U_feedback_q
 
 		// OPEN_LOOP(m);
