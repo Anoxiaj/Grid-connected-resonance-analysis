@@ -12,6 +12,7 @@ THETA_REGS G_theta;
 float32 Sample_vol_A, Sample_vol_B, Sample_vol_C;
 float32 Sample_curr_A, Sample_curr_B, Sample_curr_C;
 float32 Sample_Grid_A, Sample_Grid_B, Sample_Grid_C;
+float32 Sample_curr_Ca, Sample_curr_Cb, Sample_curr_Cc;
 
 // 参考值
 float32 Vref, Iref, Vdc;

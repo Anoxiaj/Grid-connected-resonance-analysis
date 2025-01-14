@@ -38,6 +38,7 @@ extern THETA_REGS G_theta;
 extern float32 Sample_vol_A, Sample_vol_B, Sample_vol_C;
 extern float32 Sample_curr_A, Sample_curr_B, Sample_curr_C;
 extern float32 Sample_Grid_A, Sample_Grid_B, Sample_Grid_C;
+extern float32 Sample_curr_Ca, Sample_curr_Cb, Sample_curr_Cc;
 
 extern float32 Vref, Iref, Vdc;
 

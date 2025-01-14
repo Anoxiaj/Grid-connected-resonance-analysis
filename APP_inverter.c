@@ -1,5 +1,6 @@
 #include "main.h"
 
+int jishu = 0;
 float theta_50Hz, PLL_theta;
 #define PIE 3.1415926535897932384626433832795
 const float PIEx2 = 6.283185307179586476925286766559;
@@ -230,15 +231,21 @@ void CURRENT_CLOSED_LOOP(float I_ref, float I_q)
     IiClark.beta = IiPark.beta;
 
     iClark(&IiClark); // Clark反变换
-
+    if (jishu > 1000)
+    {
+        IiClark.a = IiClark.a - Sample_curr_Ca * 0.01;
+        IiClark.b = IiClark.b - Sample_curr_Cb * 0.01;
+        IiClark.c = IiClark.c - Sample_curr_Cc * 0.01;
+    }
     /*对调制波进行归一化（SPWM的相电压最大值为(Vdc/2)*/
     waveA = (IiClark.a + 1) / 2;
     waveB = (IiClark.b + 1) / 2;
     waveC = (IiClark.c + 1) / 2;
 
-        // test1 = Id_pid.err;
-    // test2 = Iq_pid.err;
-    // test3 = Ud_pid.uo;
+    jishu++;
+    test1 = Id_pid.err;
+    test2 = Iq_pid.err;
+    test3 = Ud_pid.uo;
 }
 
 void PHASE_LOCKED_LOOP(void)
@@ -283,7 +290,7 @@ void PHASE_LOCKED_LOOP(void)
     G_theta.theta = G_theta.theta > PIEx2 ? (G_theta.theta - PIEx2) : G_theta.theta;
     G_theta.theta = G_theta.theta < 0 ? (G_theta.theta + PIEx2) : G_theta.theta;
 
-    test1 = 60 * G_theta.theta;
-    test2 = Sample_Grid_A;
-    test3 = GPark.q;
+    // test1 = 60 * G_theta.theta;
+    // test2 = Sample_Grid_A;
+    // test3 = GPark.q;
 }

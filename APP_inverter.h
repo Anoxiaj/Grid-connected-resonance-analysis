@@ -84,6 +84,8 @@ typedef struct
 } PID;
 #define PID_DEFAULTS {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
 
+extern int jishu;
+
 extern float waveA, waveB, waveC;
 extern float theta_50Hz, PLL_theta;
 

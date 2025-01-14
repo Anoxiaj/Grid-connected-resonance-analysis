@@ -36,6 +36,7 @@ void SPWM_2Closed_loop(double out_var[9], double in_var[18]) // 相当于主函�
 		waveB = 0;
 		waveC = 0;
 		m = 0;
+		jishu = 0;
 	}
 
 	if (pulse_f_Old == 0 && pulse_f == 1)
@@ -53,7 +54,11 @@ void SPWM_2Closed_loop(double out_var[9], double in_var[18]) // 相当于主函�
 		Sample_Grid_B = in_var[13];
 		Sample_Grid_C = in_var[14];
 
-				PHASE_LOCKED_LOOP(); // 角度生成-->G_theta
+		Sample_curr_Ca = in_var[15]; // 电容电流采样变量
+		Sample_curr_Cb = in_var[16];
+		Sample_curr_Cc = in_var[17];
+
+		PHASE_LOCKED_LOOP(); // 角度生成-->G_theta
 
 		THETA_GENERATE();	   // 角度生成-->U_theta, I_theta
 		sin_cos_cal(&U_theta); // 正余弦计算
@@ -83,9 +88,9 @@ void SPWM_2Closed_loop(double out_var[9], double in_var[18]) // 相当于主函�
 	out_var[6] = test1;
 	out_var[7] = test2;
 	out_var[8] = test3;
-	// out_var[6] = Sample_curr_A;
-	// out_var[7] = Sample_curr_B;
-	// out_var[8] = Sample_curr_C;
+	// out_var[6] = waveA;
+	// out_var[7] = waveB;
+	// out_var[8] = waveC;
 
 	pulse_f_Old = pulse_f;
 }
